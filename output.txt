@@ -1,0 +1,38 @@
+predict program --> stmt_list eof
+predict stmt_list --> stmt stmt_list
+predict stmt --> id gets expr
+matched id: a
+matched gets
+predict expr --> term term_tail
+predict term --> factor factor_tail
+predict factor --> lparen expr rparen
+matched lparen
+predict expr --> term term_tail
+predict term --> factor factor_tail
+predict factor --> id
+matched id: b
+predict factor_tail --> mul_op factor factor_tail
+predict mul_op --> mul
+matched mul
+predict factor --> id
+matched id: x
+predict factor_tail --> epsilon
+predict term_tail --> epsilon
+Error: Expected rparen, got id: x
+Retry expr on id: x
+
+predict expr --> term term_tail
+predict term --> factor factor_tail
+predict factor --> id
+matched id: x
+predict factor_tail --> mul_op factor factor_tail
+predict mul_op --> mul
+matched mul
+predict factor --> id
+matched id: x
+predict factor_tail --> epsilon
+predict term_tail --> epsilon
+Error: Unexpected rparen: )
+Skip stmt_list
+matched eof
+Compilation failed
