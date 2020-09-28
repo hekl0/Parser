@@ -18,3 +18,23 @@ To be more clear, the division of workloads is as follows:
 Instructions to run the project is as follow:
     - Compile with Makefile: make parse
     - Run the executable file: ./parse
+
+Note: 
+    - To notify the end of program, include EOF character instead of $$ like in the language.
+    - The best way to run program is write the input in input.txt and run ./parse < input.txt
+
+Example Input:
+x := a + b
+
+Example Output:
+(program
+  [
+    (:=
+      (id 'x')
+      (+
+        (id 'a')
+        (id 'b')
+      )
+    )
+  ]
+)

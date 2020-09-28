@@ -4,7 +4,7 @@
 # Note that rule for goal (parse) must be the first one in this file.
 
 # Uncomment the below flag to debug
-CPPFLAGS=-ggdb -Ddebug
+# CPPFLAGS=-ggdb -Ddebug
 
 parse: parse.o scan.o
 	g++ -o parse parse.o scan.o

@@ -1,38 +1,126 @@
-predict program --> stmt_list eof
-predict stmt_list --> stmt stmt_list
-predict stmt --> id gets expr
-matched id: a
-matched gets
-predict expr --> term term_tail
-predict term --> factor factor_tail
-predict factor --> lparen expr rparen
-matched lparen
-predict expr --> term term_tail
-predict term --> factor factor_tail
-predict factor --> id
-matched id: b
-predict factor_tail --> mul_op factor factor_tail
-predict mul_op --> mul
-matched mul
-predict factor --> id
-matched id: x
-predict factor_tail --> epsilon
-predict term_tail --> epsilon
-Error: Expected rparen, got id: x
-Retry expr on id: x
-
-predict expr --> term term_tail
-predict term --> factor factor_tail
-predict factor --> id
-matched id: x
-predict factor_tail --> mul_op factor factor_tail
-predict mul_op --> mul
-matched mul
-predict factor --> id
-matched id: x
-predict factor_tail --> epsilon
-predict term_tail --> epsilon
-Error: Unexpected rparen: )
-Skip stmt_list
-matched eof
-Compilation failed
+(program
+  [
+    (read
+      (id 'n')
+    )
+    (:=
+      (id 'cp')
+      (literal '2')
+    )
+    (while
+      (>
+        (id 'n')
+        (literal '0')
+      )
+      [
+        (:=
+          (id 'found')
+          (literal '0')
+        )
+        (:=
+          (id 'cf1')
+          (literal '2')
+        )
+        (:=
+          (id 'cf1s')
+          (*
+            (id 'cf1')
+            (id 'cf1')
+          )
+        )
+        (while
+          (<=
+            (id 'cf1s')
+            (id 'cp')
+          )
+          [
+            (:=
+              (id 'cf2')
+              (literal '2')
+            )
+            (:=
+              (id 'pr')
+              (*
+                (id 'cf1')
+                (id 'cf2')
+              )
+            )
+            (while
+              (<=
+                (id 'pr')
+                (id 'cp')
+              )
+              [
+                (if
+                  (=
+                    (id 'pr')
+                    (id 'cp')
+                  )
+                  [
+                    (:=
+                      (id 'found')
+                      (literal '1')
+                    )
+                  ]
+                )
+                (:=
+                  (id 'cf2')
+                  (+
+                    (id 'cf2')
+                    (literal '1')
+                  )
+                )
+                (:=
+                  (id 'pr')
+                  (*
+                    (id 'cf1')
+                    (id 'cf2')
+                  )
+                )
+              ]
+            )
+            (:=
+              (id 'cf1')
+              (+
+                (id 'cf1')
+                (literal '1')
+              )
+            )
+            (:=
+              (id 'cf1s')
+              (*
+                (id 'cf1')
+                (id 'cf1')
+              )
+            )
+          ]
+        )
+        (if
+          (=
+            (id 'found')
+            (literal '0')
+          )
+          [
+            (write
+              (id 'cp')
+            )
+            (:=
+              (id 'n')
+              (-
+                (id 'n')
+                (literal '1')
+              )
+            )
+          ]
+        )
+        (:=
+          (id 'cp')
+          (+
+            (id 'cp')
+            (literal '1')
+          )
+        )
+      ]
+    )
+  ]
+)
